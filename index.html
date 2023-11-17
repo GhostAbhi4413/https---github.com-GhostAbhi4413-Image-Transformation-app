@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Transformation</title>
+</head>
+<body>
+    <h1>Image Transformation</h1>
+    
+    <form method="post" enctype="multipart/form-data">
+        <label for="image">Select an image:</label>
+        <input type="file" name="image" accept="image/*" required>
+        
+        <label for="transformation">Select a transformation:</label>
+        <select name="transformation" id="transformation" required>
+            <option value="rotate">Rotate</option>
+            <option value="flip">Flip</option>
+            <option value="resize">Resize</option>
+            <option value="grayscale">Grayscale</option>
+        </select>
+        
+        <label for="args">Transformation arguments (comma-separated):</label>
+        <input type="text" name="args" id="args">
+        
+        <button type="submit">Apply Transformation</button>
+    </form>
+    
+    {% if image_output %}
+        <h2>Transformed Image</h2>
+        <img src="data:image/jpeg;base64,{{ image_output|b64encode }}" alt="Transformed Image">
+        <p>Transformation: {{ transformation }}</p>
+    {% endif %}
+    
+    {% if error_message %}
+        <p style="color: red;">Error: {{ error_message }}</p>
+    {% endif %}
+</body>
+</html>
